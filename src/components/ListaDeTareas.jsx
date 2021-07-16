@@ -1,24 +1,27 @@
 import react from "react";
 import "./ListaDeTareas.css";
 
-function ListaDeTareas() {
+function ListaDeTareas(props) {
+  const tareas = props.tareas;
+
   /* 
-   1- Crear variable de estado "tareas"
-   2- Hacer fetch de tareas de el servidor
-   3- Colocar las tareas del servidor en la variable "tareas"
-  
-  */
+  Funcion flecha:
+  tarea => <Tarea titulo={tarea.titulo} /> */
+  if (props.tareas.length === 0) {
+    return <div>No hay tareas :(</div> 
+  }
+
   return (
     <ul id="lista-tareas">
-      <Tarea titulo="Pasear al toby (prop)" />
-      <Tarea titulo="Segunda Tarea :)" />
-      <Tarea titulo="Tercera Tarea ⚛🧠" />
+      {tareas.map(function (tarea) {
+        return <Tarea titulo={tarea.titulo} prioridad={tarea.prioridad} />;
+      })}
     </ul>
   );
 }
 
 function Tarea(props) {
-  return <li className="prioridad-alta">{props.titulo}</li>;
+  return <li className={props.prioridad}>{props.titulo}</li>;
 }
 
 export default ListaDeTareas;

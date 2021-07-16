@@ -5,6 +5,18 @@ import { useState } from "react";
 function App() {
   const [contador, cambiarContador] = useState(0);
   const [pagina, cambiarPagina] = useState("tareas"); // Paginas = [tareas, contador]
+  const [tareas, cambiarTareas] = useState([]);
+  const [cargando, cambiarCargando] = useState(false);
+
+  function cargarTareas() {
+    cambiarCargando(true);
+    fetch('http://localhost:4000/tareas', {method: 'GET'})
+      .then(respuesta => respuesta.json())
+      .then(respuestaJson => {
+        cambiarCargando(false);
+        cambiarTareas(respuestaJson);
+      });
+  }
 
   if (pagina === "tareas") {
     return (
@@ -17,13 +29,17 @@ function App() {
           >
             Mostrar Tareas
           </button>
-
           <button
             onClick={function () {
               cambiarPagina("contador");
             }}
           >
             Mostrar Contador
+          </button>
+          <button
+            onClick={cargarTareas}
+          >
+            Cargar tareas
           </button>
         </nav>
         <span>Pagina actual: {pagina}</span>
@@ -48,8 +64,8 @@ function App() {
             <button id="agregar">Agregar!</button>
           </form>
           <h3>Tareas</h3>
-          <ListaDeTareas />
-          {/* <div class="loader"></div> */}
+          <ListaDeTareas tareas={tareas} />
+          {cargando && <div class="loader"></div>}
           <p>
             Para agregar tareas vamos a tener que hablar de eventos, el DOM y
             cómo interactuar con él

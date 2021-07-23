@@ -3,12 +3,11 @@ import "./ListaDeTareas.css";
 
 function ListaDeTareas(props) {
   const tareas = props.tareas;
-
   /* 
   Funcion flecha:
   tarea => <Tarea titulo={tarea.titulo} /> */
   if (props.tareas.length === 0) {
-    return <div>No hay tareas :(</div> 
+    return <div>No hay tareas :(</div>;
   }
 
   return (

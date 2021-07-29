@@ -4,6 +4,7 @@ import ListaDeTareas from "../components/ListaDeTareas";
 export default function PaginaTareas() {
   const [tareas, cambiarTareas] = useState([]);
   const [cargando, cambiarCargando] = useState(false);
+  const [tituloTarea, cambiarTituloTarea] = useState('');
 
   useEffect(() => {
     cargarTareas();
@@ -19,6 +20,9 @@ export default function PaginaTareas() {
       });
   }
 
+  function mostrarTarea() {
+    console.log(tituloTarea);
+  }
   return (
     <main>
       <h1>Lista de tareas!</h1>
@@ -29,6 +33,8 @@ export default function PaginaTareas() {
           type="text"
           name="tarea"
           placeholder="Descripción de la tarea"
+          value={tituloTarea}
+          onChange={(e) => cambiarTituloTarea(e.target.value)}
         />
         <select name="prioridad" id="prioridad">
           <option value="" disabled selected>
